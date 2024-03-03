@@ -6,18 +6,18 @@ def geneData(nums):
     data = []
     todayDate = datetime.today().strftime('%Y-%m-%d')
     previous_pH = random.uniform(6.5, 8.5)
-    previous_EC = random.uniform(300, 900)
+    previous_EC = random.uniform(200, 400)  # 將起始 EC 調整為合理範圍
 
     for i in range(nums - 1, -1, -1):
         # 生成新的水質數據，跟隨前一筆數據的正負波動
-        pH = max(min(previous_pH + random.uniform(-0.2, 0.2), 14), 0)
-        EC = max(min(previous_EC + random.uniform(-50, 50), 1500), 0)
+        pH = max(min(previous_pH + random.uniform(-0.1, 0.1), 9.0), 5.0)  # 限制 pH 在 5.0 到 9.0 之間
+        EC = max(min(previous_EC + random.uniform(-10, 10), 600), 100)  # 限制 EC 在 100 到 600 之間
 
         # 基於 pH 生成 DO，根據正比關係
         DO = min(max((pH - 6.5) * 1.5 + 5, 0), 10)
 
         # 基於 EC 生成 ORP，根據正比關係
-        ORP = min(max((EC - 300) * 0.75 + 150, -450), 1000)
+        ORP = min(max((EC - 100) * 0.75 + 150, -200), 800)  # 限制 ORP 在 -200 到 800 之間
 
         # 更新上一筆數據
         previous_pH = pH
