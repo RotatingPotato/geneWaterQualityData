@@ -5,8 +5,46 @@ from datetime import datetime, timedelta
 def geneData(nums):
     data = []
     todayDate = datetime.today().strftime('%Y-%m-%d')
-    previous_pH = random.uniform(6.5, 8.5)
-    previous_EC = random.uniform(200, 400)  # 將起始 EC 調整為合理範圍
+
+    print("模式選擇：")
+    print("1. 維持偏中性的水質")
+    print("2. 維持偏酸性的水質")
+    print("3. 維持偏鹼性的水質")
+    print("4. 偏酸性的水質逐漸轉為偏中性")
+    print("5. 偏鹼性的水質逐漸轉為偏中性")
+    print("6. 偏中性的水質逐漸轉為偏酸性")
+    print("7. 偏中性的水質逐漸轉為偏鹼性")
+    print("0. 離開程式")
+    mode = int(input("請選擇模式（0-7）："))
+
+    # 根據不同模式初始化起始值
+    if mode == 1:  # 維持偏中性的水質
+        previous_pH = random.uniform(6.5, 8.5)
+        previous_EC = random.uniform(300, 600)
+    elif mode == 2:  # 維持偏酸性的水質
+        previous_pH = random.uniform(5.5, 7.0)
+        previous_EC = random.uniform(100, 300)
+    elif mode == 3:  # 維持偏鹼性的水質
+        previous_pH = random.uniform(7.5, 9.0)
+        previous_EC = random.uniform(500, 900)
+    elif mode == 4:  # 偏酸性的水質逐漸轉為偏中性
+        previous_pH = random.uniform(5.0, 7.0)
+        previous_EC = random.uniform(100, 300)
+    elif mode == 5:  # 偏鹼性的水質逐漸轉為偏中性
+        previous_pH = random.uniform(8.0, 9.0)
+        previous_EC = random.uniform(600, 900)
+    elif mode == 6:  # 偏中性的水質逐漸轉為偏酸性
+        previous_pH = random.uniform(6.5, 8.5)
+        previous_EC = random.uniform(500, 700)
+    elif mode == 7:  # 偏中性的水質逐漸轉為偏鹼性
+        previous_pH = random.uniform(6.5, 8.5)
+        previous_EC = random.uniform(300, 500)
+    elif mode == 0:  # 離開程式
+        print("程式已結束。")
+        return None
+    else:
+        print("無效的模式選擇。請選擇 0 到 7 之間的數字。")
+        return None
 
     for i in range(nums - 1, -1, -1):
         # 生成新的水質數據，跟隨前一筆數據的正負波動
